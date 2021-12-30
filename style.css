@@ -422,9 +422,7 @@ section .button button:hover{
   margin-top: 2%;
   margin-left: 2.5%;
   width: 95%;
-  height: 400px;
-  display: table;
-  
+  height: 380px;
 }
 
 .display {
@@ -450,7 +448,7 @@ section .button button:hover{
 
 #pic1-img {
   width: 400px;
-  height: 400px;
+  height: 350px;
   position: relative;
   left: 3%;
   margin-top: 10%;
