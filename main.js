@@ -1,74 +1,49 @@
+// Sticky Navigation Menu Js
 
-$(document).ready(function() {
-	$('.container--horizontal').pagepiling({
-	    menu: null,
-        direction: 'horizontal',
-        verticalCentered: true,
-        sectionsColor: [],
-        anchors: [],
-        scrollingSpeed: 700,
-        easing: 'swing',
-        loopBottom: false,
-        loopTop: false,
-        css3: true,
-        menu: '.menu',
-	    anchors: ['page1', 'page2', 'page3', 'page4', 'page5'],
-        navigation: {
-            'textColor': '#000',
-            'bulletsColor': '#000',
-            'position': 'right',
-            'tooltips': ['section1', 'section2', 'section3', 'section4']
-        },
-       	normalScrollElements: null,
-        normalScrollElementTouchThreshold: 5,
-        touchSensitivity: 5,
-        keyboardScrolling: true,
-        sectionSelector: '.section',
-        animateAnchor: false,
+let nav = document.querySelector("nav");
+let scrollBtn = document.querySelector(".scroll-button a");
 
-		//events
-		onLeave: function(index, nextIndex, direction){},
-		afterLoad: function(anchorLink, index){},
-		afterRender: function(){},
-	});
-});
+let val;
 
-
-if(window.innerWidth < 1200){
-    burger = document.querySelector(".menu-btn");
-    console.log(burger);
-    burger.addEventListener("click", function(){
-        nav.classList.toggle("close");
-    })
+window.onscroll = function() {
+  if(document.documentElement.scrollTop > 20){
+    nav.classList.add("sticky");
+    scrollBtn.style.display = "block";
+  }else{
+    nav.classList.remove("sticky");
+    scrollBtn.style.display = "none";
+  }
 }
 
-var submitted = false;
+// Side Navigation Menu Js
+let body = document.querySelector("body");
+let navBar = document.querySelector(".navbar");
+let menuBtn = document.querySelector(".menu-btn");
+let cancelBtn = document.querySelector(".cancel-btn");
 
-function validateName() {
-    var name = document.getElementById('name').value;
-    if(!name.match(/^[a-zA-Z]{3,}(?: [a-zA-z]+){0,2}$/)){
-        alert("Please enter your correct name!");
-        return false;
-    }
-    return true;
+menuBtn.onclick = function() {
+  navBar.classList.add("active");
+  menuBtn.style.opacity = "0";
+  menuBtn.style.pointerEvents = "none";
+  body.style.overflowX = "hidden";
+  scrollBtn.style.pointerEvents = "none";
 }
 
-function validateForm() {
-    if(!validateName()) {
-        return false;
-    }
-    else {
-        submitted = true;
-        var thankyou = 'Your message was sent successfully. Thanks';
-        document.getElementById('success').append(thankyou);
-        return true;
-    }
+cancelBtn.onclick = function() {
+  navBar.classList.remove("active");
+  menuBtn.style.opacity = "1";
+  menuBtn.style.pointerEvents = "auto";
+  body.style.overflowX = "auto";
+  scrollBtn.style.pointerEvents = "auto";
 }
 
+// Side Navigation Bar Close While We click On Navigation Links
 
-
-function resetForm() {
-    document.getElementById('contact-form').reset();
-    console.log('Reset');
+let navLinks = document.querySelectorAll(".menu li a");
+for (var i = 0; i < navLinks.length; i++) {
+  navLinks[i].addEventListener("click" , function() {
+    navBar.classList.remove("active");
+    menuBtn.style.opacity = "1";
+    menuBtn.style.pointerEvents = "auto";
+  });
 }
-
